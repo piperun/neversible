@@ -46,8 +46,38 @@
     #when: cmake_result.stat.exists == False
 
 
-    #- name: check if nwnx2 is built (make)
+- name: check if nwnx2 is built (make)
+  stat:
+    # path: /usr/local/src/nwnx2/build/compiled/"{{item}}"
+    path: /usr/local/src/nwnx2/build/compiled/nwnx2.so
+    #loop: "{{ nwnx2libs }}"
+  register: nwnx2lib_stat
+
+ 
 
 - name: build nwnx2 (make)
   make:
     chdir: /usr/local/src/nwnx2/build
+  when: nwnx2lib_stat.exists == False
+
+
+- name: copy *.so files to nwn
+  copy:
+    src: /usr/local/src/nwnx2/build/compiled/"{{item}}"
+    dest: /home/neverwinter/nwn/"{{item}}"
+    owner: neverwinter
+    group: neverwinter
+    mode: u+rw,g-rw,o-rwx
+    remote_src: yes
+  loop: "{{ nwnx2libs }}"
+
+
+- name: copy nwn.service to nwn
+  copy:
+    src: nwn.service
+    dest: /etc/systemd/system/nwn.service
+    owner: root
+    group: root
+
+
+
