@@ -1,0 +1,4 @@
+- name: start nwn 
+  service:
+    name: nwn
+    state: started
