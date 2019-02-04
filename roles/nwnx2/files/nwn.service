@@ -1,19 +1,18 @@
 [Unit]
-Description=Postfix Mail Transport Agent
+Description=Neverwinter night server
 
 [Service]
 Type=forking
 User=neverwinter
-PIDFile=/var/run/nwn.pid
+WorkingDirectory=/home/neverwinter/nwn
 
-ExecStartPre=cd /home/never/nwn
-ExecStart=/usr/bin/tmux new-session -s nwn -n nwn_server -d /home/never/nwn/start_nwn.sh
+ExecStart=/usr/bin/tmux new-session -s nwn -n nwn_server -d /home/neverwinter/nwn/start_nwn.sh
 #ExecReload=/usr/sbin/postfix reload
 ExecStop=/usr/bin/tmux send-keys -t nwn C-q && /usr/bin/tmux kill-session -t nwn
 
-WorkingDirectory=/home/neverwinter/nwn
 Restart=on-failure
 
 
 [Install]
 WantedBy=multi-user.target
+
