@@ -51,20 +51,20 @@
     # path: /usr/local/src/nwnx2/build/compiled/"{{item}}"
     path: /usr/local/src/nwnx2/build/compiled/nwnx2.so
     #loop: "{{ nwnx2libs }}"
-  register: nwnx2lib_stat
+  register: nwnx2lib_result
 
  
 
 - name: build nwnx2 (make)
   make:
     chdir: /usr/local/src/nwnx2/build
-  when: nwnx2lib_stat.exists == False
+  when: nwnx2lib_result.stat.exists == False
 
 
 - name: copy *.so files to nwn
   copy:
-    src: /usr/local/src/nwnx2/build/compiled/"{{item}}"
-    dest: /home/neverwinter/nwn/"{{item}}"
+    src: /usr/local/src/nwnx2/build/compiled/{{item}}
+    dest: /home/neverwinter/nwn/{{item}}
     owner: neverwinter
     group: neverwinter
     mode: u+rw,g-rw,o-rwx
