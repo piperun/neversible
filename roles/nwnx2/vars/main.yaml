@@ -7,6 +7,7 @@ compilertools:
   - gperf
   - postgresql-server
   - postgresql-devel
+  - tmux
 
 
 
@@ -14,6 +15,13 @@ libs:
   - zlib-devel
   - glibc-devel
   - boost-devel
+
+
+nwnx2libs:
+  - nwnx2.so
+  - bindoverride.so
+  - netoverride.so
+  - openoverride.so
 
 
 
