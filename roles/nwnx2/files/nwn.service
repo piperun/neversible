@@ -11,7 +11,7 @@ ExecStart=/usr/bin/tmux new-session -s nwn -n nwn_server -d /home/never/nwn/star
 #ExecReload=/usr/sbin/postfix reload
 ExecStop=/usr/bin/tmux send-keys -t nwn C-q && /usr/bin/tmux kill-session -t nwn
 
-WorkingDirectory=/home/never/nwn
+WorkingDirectory=/home/neverwinter/nwn
 Restart=on-failure
 
 
