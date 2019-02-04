@@ -1,0 +1,53 @@
+---
+
+#- hosts: nwn
+
+
+- name: install compiler tools
+  yum:
+    name: "{{ compilertools }}"
+    state: present
+
+- name: install libs
+  yum:
+    name: "{{ libs }}"
+
+
+- git:
+   repo: 'https://github.com/NWNX/nwnx2-linux.git'
+   dest: /usr/local/src/nwnx2
+   clone: no
+   update: no
+  register: nwnx2_commit
+
+
+- git: 
+   repo: https://github.com/NWNX/nwnx2-linux.git
+   dest: /usr/local/src/nwnx2
+   clone: yes
+  when: nwnx2_commit.before != nwnx2_commit.after 
+
+- name: Creates build directory
+  file:
+    path: /usr/local/src/nwnx2/build
+    state: directory
+
+
+- name: check if nwnx2 is built (cmake)
+  stat:
+    path: /usr/local/src/nwnx2/build/cmake_install.cmake
+  register: cmake_result
+
+    
+- name: build nwnx2 (cmake)
+  shell:
+    cmd: cmake ..
+    chdir: /usr/local/src/nwnx2/build
+    #when: cmake_result.stat.exists == False
+
+
+    #- name: check if nwnx2 is built (make)
+
+- name: build nwnx2 (make)
+  make:
+    chdir: /usr/local/src/nwnx2/build

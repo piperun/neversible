@@ -1,0 +1,26 @@
+---
+
+
+#- name: Create lxc container
+#  hosts: local
+#  remote_user: root
+#
+#  roles:
+#          - lxc
+
+
+#- name: Download nwn
+#  hosts: nwn
+#  remote_user: neverwinter
+#
+#  roles:
+#          - neverwinter
+
+- name: Download and compile nwnx2
+  hosts: nwn
+  remote_user: root
+
+  roles:
+      - nwnx2
+
+

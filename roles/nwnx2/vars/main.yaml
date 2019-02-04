@@ -1,0 +1,20 @@
+---
+compilertools:
+  - gcc
+  - gcc-c++
+  - cmake
+  - make
+  - gperf
+  - postgresql-server
+  - postgresql-devel
+
+
+
+libs:
+  - zlib-devel
+  - glibc-devel
+  - boost-devel
+
+
+
+
